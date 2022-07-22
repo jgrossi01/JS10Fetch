@@ -14,9 +14,10 @@ class Car {
 }
 
 class Reservation {
-    constructor (id, carname, quantity, rentedDays, dayPrice, total){
+    constructor (id, carname, img, quantity, rentedDays, dayPrice, total){
         this.id = parseInt(id);
         this.carname = carname;
+        this.img = img;
         this.quantity = parseInt(quantity);
         this.renteddays = parseInt(rentedDays);
         this.dayprice = Number(dayPrice);
@@ -31,8 +32,5 @@ const arrayCars = [];
 arrayCars.push(new Car (nextIndexOf(arrayCars),"Etios", "etios.png", 2000,4,"Nafta","Manual",false));
 arrayCars.push(new Car (nextIndexOf(arrayCars),"Corolla", "corolla.png", 3000,5,"Nafta","Automatico",true));
 arrayCars.push(new Car (nextIndexOf(arrayCars),"Hilux", "hilux.png", 4000,5,"Diesel","Manual",true));
-console.log(arrayCars);
-let cars = JSON.stringify(arrayCars)
-console.log(cars);
 
 export{ Car,Reservation,arrayCars,arrayReservations };

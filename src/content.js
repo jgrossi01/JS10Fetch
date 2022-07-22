@@ -1,16 +1,32 @@
 import { arrayCars, arrayReservations} from "./class.js";
-import { addMsj } from "./form.js";
 
 
-function createLi(selected = null) {
-  const selection = document.getElementById("modelInput");
-  selection.innerHTML = '';
-  for (const car of arrayCars) {
-    // Clase 12. Desestructuracion de datos.
+
+function createSelect(data) {
+    const selection = document.getElementById("modelInput");
+    selection.innerHTML = "";
+    Array.from(data).forEach( car => {
     const { name } = car;
-    // CLase 12. Operador ternario ? IF : ELSE
-    selected === name ? selection.innerHTML += `<option selected>${name}</option>` : selection.innerHTML += `<option>${name}</option>`;
-  }
+    selection.innerHTML += `<option>${name}</option>`;
+    })
+}
+
+
+function updateSelect(selectedId){
+    
+    const selection = document.getElementById("modelInput");
+    fetch("./cars.json")
+    .then((response) => response.json())
+    .then((data) => {
+        const target = data.find((model) => model.id === parseInt(selectedId)); 
+        data.forEach(car => {
+            
+            // Clase 12. Desestructuracion de datos.
+            const { name, id } = car;
+            // CLase 12. Operador ternario ? IF : ELSE
+            target.id === id ? selection.innerHTML += `<option selected>${name}</option>` : selection.innerHTML += `<option>${name}</option>`;
+        })
+    }) 
 }
 
 function removeContent() {
@@ -18,13 +34,13 @@ function removeContent() {
   content.innerHTML = "";
 }
 
-function loadCards() {
+function loadCards(data) {
   removeContent();
   let destination = document.getElementById("cards");
-  for (const car of arrayCars) {
+  data.forEach( post => {
     // Clase 12. operadores avanzados, simplificacion de codigo
     // en vez de car.id luego usaremos id.
-    const {id,img,name,passengers,fuel,transmission} = car;
+    const {id,img,name,passengers,fuel,transmission} = post;
     const card = document.createElement("section");
     card.classList.add("text-gray-600");
     card.classList.add("body-font");
@@ -80,7 +96,18 @@ function loadCards() {
                             </div>
                             `;
     destination.appendChild(card);
-  }
+
+    const rentItBtn = document.getElementsByClassName("rentItBtn");
+
+    Array.from(rentItBtn).forEach(function (element) {
+      element.addEventListener("click", () => {
+        const selectedId = element.parentElement.parentElement.parentElement.id;
+        updateSelect(selectedId);
+        bookingForm.scrollIntoView(true);
+      });
+    });
+
+  })
 
   //Agregamos la caracteristica ABS si corresponde
 
@@ -102,28 +129,5 @@ function loadCards() {
   }
 }
 
-function loadExistingValues (){
-    const storageQuantity = JSON.parse(localStorage.getItem("quantityInput"));
-    const storageDays = JSON.parse(localStorage.getItem("daysInput"));
-    const storageFinalQuantity = JSON.parse( localStorage.getItem("finalQty"));
-    const storageFinalTotal = JSON.parse( localStorage.getItem("finalTotal"));
 
-    const quantityInput = document.getElementById("quantityInput");
-    const daysInput = document.getElementById("daysInput");
-
-    if(storageQuantity) {quantityInput.value = storageQuantity};
-    if(storageDays) {daysInput.value = storageDays};
-
-    if(arrayReservations.length > 0) { 
-        
-        Array.from(arrayReservations).forEach(function(element) {
-            
-            addMsj(`Se agregó a tu carrito ${element.quantity} ${element.carname} por ${element.renteddays} días. Total parcial: ${element.total}`,false);
-            addMsj(`Reservó correctamente ${storageFinalQuantity} vehiculos por un total de \$${storageFinalTotal}`,true);
-        })
-    }
-    console.log(arrayReservations);
-
-}
-
-export { createLi, removeContent, loadCards, loadExistingValues };
+export { createSelect, updateSelect, removeContent, loadCards };

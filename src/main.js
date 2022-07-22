@@ -1,29 +1,28 @@
-import { formValidate, clearMsj } from "./form.js";
-import { createLi, loadCards, loadExistingValues } from "./content.js";
+import { formValidate, clearMsj, loadStorageForm, updateCart, updateStorage } from "./form.js";
+import { createSelect, loadCards } from "./content.js";
 import { arrayCars, arrayReservations } from "./class.js";
 
 window.addEventListener("DOMContentLoaded", (event) => {
 
+    //Carga tarjetas desde JSON y crea lista para formulario
+    fetch("./cars.json")
+    .then((response) => response.json())
+    .then((data) => {
+      loadCards(data);
+      createSelect(data);
+    })  
+
   const daysInput = document.getElementById("daysInput");
   // Se puede usar document.querySelector('#daysInput')
   const quantityInput = document.getElementById("quantityInput");
-  const bookingForm = document.getElementById("bookingForm");
   const clearFormBtn = document.getElementById("clearFormBtn");
-  const rentItBtn = document.getElementsByClassName("rentItBtn");
-
-  createLi();
-  loadCards();
-  loadExistingValues();
+  const bookingForm = document.getElementById("bookingForm");
   
-  // Carga en el formulario el vehiculo seleccionado en las cards y redirige arriba 
-  Array.from(rentItBtn).forEach(function(element) {
-    element.addEventListener('click', () => { 
-      const id = element.parentElement.parentElement.parentElement.id;
-      const target = arrayCars.find((model) => model.id === parseInt(id)); 
-      createLi(target.name);
-      bookingForm.scrollIntoView(true);
-    });
-  });
+
+  //createSelect(arrayCars);
+  //loadCards(arrayCars); 
+  loadStorageForm();
+  updateCart();
 
 });
 
@@ -41,9 +40,9 @@ quantityInput.addEventListener("keyup", () => {
 clearFormBtn.addEventListener("click", () => {
   localStorage.clear();
   bookingForm.reset();
-  clearMsj(false,false);
   arrayReservations.length = 0;
-  console.log(arrayReservations);
+  updateStorage();
+  updateCart();
 });
 
 // Ejecutamos la validacion del forumlario al ser enviado
@@ -52,9 +51,5 @@ bookingForm.addEventListener("submit", formValidate);
 function nextIndexOf(array) {
   return array.length + 1;
 }
-
-
-
-
 
 export { nextIndexOf };
