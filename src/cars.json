@@ -1,0 +1,32 @@
+[
+    {
+    "id": 1,
+    "name": "Etios",
+    "img": "etios.png",
+    "dayprice": 2000,
+    "passengers": 4,
+    "fuel": "Nafta",
+    "transmission": "Manual",
+    "abs": false
+    },
+    {
+    "id": 2,
+    "name": "Corolla",
+    "img": "corolla.png",
+    "dayprice": 3000,
+    "passengers": 5,
+    "fuel": "Nafta",
+    "transmission": "Automatico",
+    "abs": true
+    },
+    {
+    "id": 3,
+    "name": "Hilux",
+    "img": "hilux.png",
+    "dayprice": 4000,
+    "passengers": 5,
+    "fuel": "Diesel",
+    "transmission": "Manual",
+    "abs": true
+    }
+]
