@@ -1,23 +1,25 @@
-import { formValidate, clearMsj, loadStorageForm, updateCart, updateStorage } from "./form.js";
+import { formValidate, loadStorageForm, updateCart, updateStorage } from "./form.js";
 import { createSelect, loadCards } from "./content.js";
-import { arrayCars, arrayReservations } from "./class.js";
+import { arrayReservations, arrayCars } from "./class.js";
 
 window.addEventListener("DOMContentLoaded", (event) => {
+    // ULTIMA CLASE
+    // Instalar librerias por npm
+    // aca adentro solo se inicializa. no hacen falta los selectores.
+    // Modularizar todo con el modelo  del afterclass.
 
     //Carga tarjetas desde JSON y crea lista para formulario
-    fetch("./cars.json")
+     fetch("./cars.json")
     .then((response) => response.json())
     .then((data) => {
       loadCards(data);
       createSelect(data);
-    })  
+    })   
 
-  const daysInput = document.getElementById("daysInput");
-  // Se puede usar document.querySelector('#daysInput')
   const quantityInput = document.getElementById("quantityInput");
   const clearFormBtn = document.getElementById("clearFormBtn");
   const bookingForm = document.getElementById("bookingForm");
-  
+
 
   //createSelect(arrayCars);
   //loadCards(arrayCars); 
@@ -26,10 +28,6 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
 });
 
-// Cuando se deja de escribir se guarda el nuevo valor en el storage
-daysInput.addEventListener("keyup", () => {
-  localStorage.setItem("daysInput", JSON.stringify(daysInput.value));
-});
 
 // Cuando se deja de escribir se guarda el nuevo valor en el storage
 quantityInput.addEventListener("keyup", () => {
