@@ -3,24 +3,18 @@ import { createSelect, loadCards } from "./content.js";
 import { arrayReservations, arrayCars } from "./class.js";
 
 window.addEventListener("DOMContentLoaded", (event) => {
-    // ULTIMA CLASE
-    // Instalar librerias por npm
-    // aca adentro solo se inicializa. no hacen falta los selectores.
-    // Modularizar todo con el modelo  del afterclass.
-    // Pushear el fetch en un array
 
-    //Carga tarjetas desde JSON y crea lista para formulario
-    fetch("./cars.json")
-    .then((response) => response.json())
-    .then((data) => {
-      loadCards(data);
-      createSelect(data);
-    })   
+  //Carga tarjetas desde JSON y crea lista para formulario
+  fetch("./cars.json")
+  .then((response) => response.json())
+  .then((data) => {
+    loadCards(data);
+    createSelect(data);
+  })   
 
   const quantityInput = document.getElementById("quantityInput");
   const clearFormBtn = document.getElementById("clearFormBtn");
   const bookingForm = document.getElementById("bookingForm");
-
 
   //createSelect(arrayCars);
   //loadCards(arrayCars); 
