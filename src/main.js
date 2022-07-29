@@ -7,9 +7,10 @@ window.addEventListener("DOMContentLoaded", (event) => {
     // Instalar librerias por npm
     // aca adentro solo se inicializa. no hacen falta los selectores.
     // Modularizar todo con el modelo  del afterclass.
+    // Pushear el fetch en un array
 
     //Carga tarjetas desde JSON y crea lista para formulario
-     fetch("./cars.json")
+    fetch("./cars.json")
     .then((response) => response.json())
     .then((data) => {
       loadCards(data);
